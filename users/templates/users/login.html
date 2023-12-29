@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block info %}
+<link rel="stylesheet" href="{% static 'athletes/css/styles.css'%}">
+<div class="container" align="center">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Вход</legend>
+            {% for i in form %}
+            <p>
+                <label class="form-text" for="{{ i.id_for_label }}">
+                    {{i.label}}:
+                </label>
+                {{ i }}
+            </p>
+            <div class="form-error">{{i.errors}}</div>
+            {% endfor %}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Авторизоваться</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Не зарегистрированы? <a class="ml-2" href="{% url 'registration' %}">Регистрация</a>
+            <br>
+            Забыли пароль? <a class="ml-2" href="{% url 'password_reset' %}">Сброс пароля</a>
+        </small>
+    </div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="space" style="height:286px;"></div>
+{% endblock %}

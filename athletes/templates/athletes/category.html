@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block info %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ title }}</h1>
+                    <div class="text-muted fst-italic mb-2">Cамые вдохновляющие биографии спортсменов</div>
+                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>-->
+                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>-->
+                </header>
+                <figure class="mb-4"><img class="img-fluid rounded"
+                                          src="/static/athletes/images/4.jpg" width="900" alt="..."/></figure>
+                <section class="mb-5">
+                </section>
+            </article>
+        </div>
+{% endblock %}
+{% block page_content %}
+
+<div class="container mt-5">
+    <div class="row">
+        {% for athlete in athletes %}
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <a href="{{ athlete.get_absolute_url }}">
+                    <img class="card-img-top" src="{{ athlete.image.url }}" alt="Athlete Image"></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ athlete.title }}</h5>
+                    <p class="card-text">{{ athlete.content | truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Автор: {{ athlete.author }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+    </div>
+</div>

@@ -1,0 +1,31 @@
+{% if not sent %}
+  <h1>Поделиться "{{ post.title }}" по e-mail</h1>
+  <form method="post" action="{% url 'post_share' post.slug %}" class="share-form">
+    {% csrf_token %}
+      <div class="form-group">
+     <p><label for="{{ form.email.id_for_label }}">Имя:</label></p>
+      {{ form.name }}
+    </div>
+    <div class="form-group">
+      <p><label for="{{ form.email.id_for_label }}">Ваш e-mail:</label></p>
+      {{ form.sender }}
+    </div>
+    <div class="form-group">
+        <p><label for="{{ form.to.id_for_label }}">E-mail получателя:</label></p>
+      {{ form.to }}
+    </div>
+    <div class="form-group">
+        <p><label for="{{ form.comments.id_for_label }}">Комментарий (необязательно):</label></p>
+      {{ form.comment }}
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить e-mail</button>
+  </form>
+{% else %}
+  <h1 class="success-message" align="center">E-mail удачно отправлено</h1>
+  <h2 class="success-message" align="center">
+    "{{ post.title }}" отправлено {{ form.cleaned_data.to }}.
+  </h2>
+  <div class="text-center">
+    <a class="btn btn-dark" href="{{post.get_absolute_url}}">Назад</a>
+  </div>
+{% endif %}

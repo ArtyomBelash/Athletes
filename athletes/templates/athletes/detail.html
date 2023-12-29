@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block info %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ athlete.title }}</h1>
+
+                    <div class="text-muted fst  mb-2">
+                        <span>Автор: {{ athlete.author }}</span><br>
+                        <span>Категория: {{ athlete.category }}</span><br>
+                        <span>Обновлено: {{ athlete.time_update }}</span>
+                    </div>
+
+                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>-->
+                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>-->
+                </header>
+                <figure class="mb-4"><img class="img-fluid rounded" src="{{ athlete.image.url }}" width="900"
+                                          alt="..."/></figure>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4">{{ athlete.content | linebreaks }}</p>
+                    <div id="share-form-container">
+                        <button class="btn btn-primary" id="share-button" data-athlete-slug="{{ athlete.slug }}">
+                            Поделиться по E-mail
+                        </button>
+                    </div>
+
+                    <div>
+                        <span class="count">
+                            <br>
+                            {% with total_likes=athlete.users_like.count users_like=athlete.users_like.all %}
+                        <span class="total">{{ total_likes }}</span>
+                            like{{ total_likes|pluralize }}
+                            </span>
+                        <a href="#" data-id="{{ athlete.id }}" data-url="{% url 'like' %}"
+                           data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
+                            {% if request.user not in users_like %}
+                            Like
+                            {% else %}
+                            Unlike
+                            {% endif %}
+                            {% endwith %}
+                        </a>
+                    </div>
+                </section>
+                {% with athlete.athletes.all.count as total_comments %}
+                <h2>
+                    Коментарии: {{ total_comments }}
+                </h2>
+                {% endwith %}
+                {% for comment in athlete.athletes.all %}
+                <div class="alert alert-dark" role="alert">
+                    {{ comment.created_on }}&nbsp;<b>{{ comment.name }}</b>:
+                </div>
+                <div class="alert" role="alert">
+                    {{ comment.body }}
+                </div>
+                {% endfor %}
+                <h3>Оставьте комментарий</h3>
+                <form action="{{athlete.get_absolute_url}}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <p><label for="{{ form.to.id_for_label }}">Имя: </label></p>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <p><label for="{{ form.comments.id_for_label }}">Комментарий:</label></p>
+                        {{ form.body }}
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Отправить</button>
+                </form>
+                <br>
+            </article>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+    {% block scripts %}
+    {{ block.super }}
+<script>
+    // Получение значения csrftoken из cookie
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Имя cookie с csrftoken
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    // Ваш оставшийся JavaScript-код
+    document.querySelector('a.like').addEventListener('click', function(e) {
+    });
+</script>
+{% endblock %}
+
+

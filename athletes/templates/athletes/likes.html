@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<div class="container mt-5">
+    <div class="row">
+        {% for athlete in athletes %}
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <a href="{{ athlete.get_absolute_url }}">
+                    <img class="card-img-top" src="{{ athlete.image.url }}" alt="Athlete Image"></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ athlete.title }}</h5>
+                    <p class="card-text">{{ athlete.content | truncatewords:20 }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Автор: {{ athlete.author }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
