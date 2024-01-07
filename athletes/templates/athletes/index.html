@@ -12,7 +12,15 @@
                     <p class="card-text">{{ athlete.content | truncatewords:20 }}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Автор: {{ athlete.author }}</small>
+                    <small class="text-muted">
+                        Категория:
+                        <a href="{{ athlete.category.get_absolute_url }}" class="category-link">
+                            {{ athlete.category.name }}
+                        </a>
+                    </small><br>
+                    <small class="text-muted">
+                        Автор: <span class="author-name">{{ athlete.author }}</span>
+                    </small>
                 </div>
             </div>
         </div>

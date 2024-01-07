@@ -67,8 +67,29 @@
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
+
+.like.button {
+    display: inline-block;
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.like.button:before {
+    content: "\2661";
+}
+
+.like.button.active:before {
+    content: "\2665";
+    color: red;
+}
+
 .fixed-width {
-  width: 300px; /* Задайте желаемую ширину */
+  width: 300px;
 }
 *,
 *::before,

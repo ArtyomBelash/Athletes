@@ -13,9 +13,6 @@
                         <span>Категория: {{ athlete.category }}</span><br>
                         <span>Обновлено: {{ athlete.time_update }}</span>
                     </div>
-
-                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>-->
-                    <!--                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>-->
                 </header>
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{ athlete.image.url }}" width="900"
                                           alt="..."/></figure>
@@ -32,10 +29,10 @@
                             <br>
                             {% with total_likes=athlete.users_like.count users_like=athlete.users_like.all %}
                         <span class="total">{{ total_likes }}</span>
-                            like{{ total_likes|pluralize }}
+                            Нравится{{ total_likes|pluralize }}
                             </span>
                         <a href="#" data-id="{{ athlete.id }}" data-url="{% url 'like' %}"
-                           data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
+                           data-action="{% if request.user in users_like %}Un{% endif %}like" class="like button">
                             {% if request.user not in users_like %}
                             Like
                             {% else %}
@@ -77,8 +74,8 @@
         {% endblock %}
     </div>
 </div>
-    {% block scripts %}
-    {{ block.super }}
+{% block scripts %}
+{{ block.super }}
 {% endblock %}
 
 
