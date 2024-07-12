@@ -74,7 +74,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'athlete_blog',
         'USER': 'admin',
-        'PASSWORD': 123321,
+        'PASSWORD': env.int('PASSWORD'),
     },
     'extra': {
         'ENGINE': 'django.db.backends.sqlite3',
